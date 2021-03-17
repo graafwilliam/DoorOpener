@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+from time import sleep
 
 #GPIO Setup
 GPIO.setmode (GPIO.BOARD)
@@ -9,7 +10,9 @@ GPIO.setwarnings(False)
 GPIO.setup(11,GPIO.OUT)
 pwm=GPIO.PWM(11,50)
 pwm.start(5)
-
+GPIO.setup(38, GPIO.OUT)
+pwm=GPIO.PWM(38, 50)
+pwm.start(0)
 #set gpio for key pad
 # THIS OS
 rowsPins = [12,16,18,22]
@@ -19,12 +22,23 @@ colsPins = [19,15,13,11]
 for j in range(4):
     GPIO.setup(colsPins[j], GPIO.OUT)
     GPIO.output(colsPins[j], 1)
+
 for i in range(4):
     GPIO.setup(rowsPins[i], GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
+def SetAngle(angle):
+    duty = angle / 18 + 2
+    GPIO.output(38, True)
+    pwm.ChangeDutyCycle(duty)
+    sleep(2)
+    GPIO.output(38, False)
+
 def open_door():
+    SetAngle(90)
     print("Opening the door!")
+
 def close_door():
+    SetAngle(0)
     print("Closing the door!")
 #Function to check keypad input!
 def check_keypad(length):
@@ -53,7 +67,7 @@ def accept_code():
     doorstatus = False
     while True:
         # password
-        password = "*" "6" "9" "*"
+        password = "6" "D" "9" "*"
         length = len(password)
 
         #Password From KeyPad
