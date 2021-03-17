@@ -15,7 +15,7 @@ pwm=GPIO.PWM(38, 50)
 pwm.start(0)
 #set gpio for key pad
 # THIS OS
-rowsPins = [12,16,18,22]
+rowsPins = [12,35,37,22]
 colsPins = [19,15,13,11]
 
 
