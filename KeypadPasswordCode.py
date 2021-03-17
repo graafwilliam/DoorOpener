@@ -67,7 +67,7 @@ def accept_code():
     doorstatus = False
     while True:
         # password
-        password = "6" "D" "9" "*"
+        password = "5" "6" "9" "8"
         length = len(password)
 
         #Password From KeyPad
