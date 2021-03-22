@@ -2,24 +2,24 @@ import RPi.GPIO as GPIO
 import time
 from time import sleep
 
-#GPIO Setup
-GPIO.setmode (GPIO.BOARD)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
-# set gpio for servo
-GPIO.setup(11,GPIO.OUT)
-pwm=GPIO.PWM(11,50)
-pwm.start(5)
-GPIO.setup(38, GPIO.OUT)
-pwm=GPIO.PWM(38, 50)
-pwm.start(0)
-
-GPIO.setup(40, GPIO.OUT, initial=GPIO.LOW)
 #set gpio for key pad
-# THIS OS
 rowsPins = [12,35,37,22]
 colsPins = [19,15,13,11]
 
+# def setup():
+    # GPIO Setup
+GPIO.setup(40, GPIO.OUT, initial=GPIO.LOW)
+
+# set gpio for servo
+# GPIO.setup(11, GPIO.OUT)
+# pwm = GPIO.PWM(11, 50)
+# pwm.start(5)
+GPIO.setup(38, GPIO.OUT)
+pwm = GPIO.PWM(38, 50)
+pwm.start(0)
 
 for j in range(4):
     GPIO.setup(colsPins[j], GPIO.OUT)
@@ -40,15 +40,19 @@ def SetAngle(angle):
     duty = angle / 18 + 2
     GPIO.output(38, True)
     pwm.ChangeDutyCycle(duty)
-    sleep(2)
+    # sleep(2)
     GPIO.output(38, False)
 
 def open_door():
     SetAngle(90)
     print("Opening the door!")
+
+
 def close_door():
     SetAngle(0)
     print("Closing the door!")
+
+
 def check_keypad(length):
 
     MATRIX = [["1","2","A","3"],
@@ -72,7 +76,7 @@ def check_keypad(length):
                 return result
 
 def accept_code():
-    doorstatus = False
+    doorstatus = True
     while True:
         # password
         password = "1" "1" "1" "1"
@@ -100,4 +104,12 @@ def accept_code():
 
 
 
-accept_code()
+
+if __name__ == '__main__':    # Program entrance
+    print ('Program is starting ... \n')
+    # setup()
+    try:
+        accept_code()
+    except KeyboardInterrupt:   # Press ctrl-c to end the program.
+        GPIO.cleanup()
+        pwm.stop()
