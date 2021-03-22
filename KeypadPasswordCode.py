@@ -13,6 +13,8 @@ pwm.start(5)
 GPIO.setup(38, GPIO.OUT)
 pwm=GPIO.PWM(38, 50)
 pwm.start(0)
+
+GPIO.setup(40, GPIO.OUT, initial=GPIO.LOW)
 #set gpio for key pad
 # THIS OS
 rowsPins = [12,35,37,22]
@@ -23,8 +25,16 @@ for j in range(4):
     GPIO.setup(colsPins[j], GPIO.OUT)
     GPIO.output(colsPins[j], 1)
 
+
 for i in range(4):
     GPIO.setup(rowsPins[i], GPIO.IN, pull_up_down = GPIO.PUD_UP)
+
+def wrong_password():
+    GPIO.output(40, GPIO.HIGH)
+    sleep(1)
+    GPIO.output(40, GPIO.LOW)
+    sleep(1)
+    heath = 10.00
 
 def SetAngle(angle):
     duty = angle / 18 + 2
@@ -36,11 +46,9 @@ def SetAngle(angle):
 def open_door():
     SetAngle(90)
     print("Opening the door!")
-
 def close_door():
     SetAngle(0)
     print("Closing the door!")
-#Function to check keypad input!
 def check_keypad(length):
 
     MATRIX = [["1","2","A","3"],
@@ -67,7 +75,7 @@ def accept_code():
     doorstatus = False
     while True:
         # password
-        password = "5" "6" "9" "8"
+        password = "1" "1" "1" "1"
         length = len(password)
 
         #Password From KeyPad
@@ -88,6 +96,7 @@ def accept_code():
 
         else:
             print("Password incorrect")
+            wrong_password()
 
 
 
