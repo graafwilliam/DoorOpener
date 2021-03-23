@@ -38,10 +38,11 @@ def wrong_password():
 
 def SetAngle(angle):
     duty = angle / 18 + 2
-    GPIO.output(38, True)
+    # GPIO.output(38, True)
     pwm.ChangeDutyCycle(duty)
-    # sleep(2)
-    GPIO.output(38, False)
+    sleep(1)
+    # GPIO.output(38, False)
+    pwm.ChangeDutyCycle(0)
 
 def open_door():
     SetAngle(90)
