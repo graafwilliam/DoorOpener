@@ -11,7 +11,7 @@ colsPins = [19,15,13,11]
 
 # def setup():
     # GPIO Setup
-GPIO.setup(40, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(40, GPIO.OUT, initial=GPIO.HIGH)
 
 # set gpio for servo
 # GPIO.setup(11, GPIO.OUT)
@@ -30,10 +30,10 @@ for i in range(4):
     GPIO.setup(rowsPins[i], GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 def wrong_password():
-    GPIO.output(40, GPIO.HIGH)
     sleep(1)
     GPIO.output(40, GPIO.LOW)
     sleep(1)
+    GPIO.output(40, GPIO.HIGH)
     heath = 10.00
 
 def SetAngle(angle):
