@@ -7,7 +7,7 @@ GPIO.setwarnings(False)
 
 #set gpio for key pad
 rowsPins = [12,35,37,22]
-colsPins = [19,15,13,11]
+colsPins = [19,31,13,11]
 
 # def setup():
     # GPIO Setup
